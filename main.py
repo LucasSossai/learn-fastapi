@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, status
 from core.config import settings
 from db.session import engine
 from db.base import Base
@@ -26,3 +26,8 @@ app = start_application()
 @app.get("/")
 def hello_api():
     return {"detail": "Hello World"}
+
+
+@app.get("/healthcheck", status_code=status.HTTP_200_OK)
+def perform_healthcheck():
+    return {"healthcheck": "Everything OK!"}
