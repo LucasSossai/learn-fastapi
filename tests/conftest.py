@@ -13,6 +13,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from apis.base import api_router
 from db.base import Base
 from db.session import get_db
+from core.config import settings
 
 
 def start_application():
@@ -21,9 +22,9 @@ def start_application():
     return app
 
 
-SQLALCHEMY_DATABASE_URL = "sqlite:///./test_db.db"
+TEST_SQLITE_DB = settings.TEST_SQLITE_DB
 engine = create_engine(
-    SQLALCHEMY_DATABASE_URL, connect_args={'check_same_thread': False}
+    TEST_SQLITE_DB, connect_args={'check_same_thread': False}
 )
 SessionTesting = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 

@@ -20,5 +20,7 @@ class Settings:
     postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_SERVER}:{POSTGRES_PORT}/{POSTGRES_DB}
     """.strip()
 
+    TEST_SQLITE_DB: str = os.getenv('TEST_SQLITE_DB')
+
 
 settings = Settings()
