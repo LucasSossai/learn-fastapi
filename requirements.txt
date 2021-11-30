@@ -8,4 +8,3 @@ passlib[bcrypt]
 pytest
 requests
 flake8
-sqlite
