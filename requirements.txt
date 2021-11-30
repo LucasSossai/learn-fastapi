@@ -8,3 +8,4 @@ passlib[bcrypt]
 pytest
 requests
 flake8
+pytest-cov
