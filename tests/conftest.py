@@ -8,13 +8,12 @@ from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from apis.base import api_router
 from db.base import Base
 from db.session import get_db
-
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-# this is to include backend dir in sys.path so that we can import from
-# db,main.py
+from core.config import settings
 
 
 def start_application():
@@ -23,11 +22,10 @@ def start_application():
     return app
 
 
-SQLALCHEMY_DATABASE_URL = 'sqlite:///./test_db.db'
+TEST_SQLITE_DB = settings.TEST_SQLITE_DB
 engine = create_engine(
-    SQLALCHEMY_DATABASE_URL, connect_args={'check_same_thread': False}
+    TEST_SQLITE_DB, connect_args={'check_same_thread': False}
 )
-# Use connect_args parameter only with sqlite
 SessionTesting = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
@@ -36,7 +34,7 @@ def app() -> Generator[FastAPI, Any, None]:
     """
     Create a fresh database on each test case.
     """
-    Base.metadata.create_all(engine)  # Create the tables.
+    Base.metadata.create_all(engine)
     _app = start_application()
     yield _app
     Base.metadata.drop_all(engine)
@@ -47,7 +45,7 @@ def db_session(app: FastAPI) -> Generator[SessionTesting, Any, None]:
     connection = engine.connect()
     transaction = connection.begin()
     session = SessionTesting(bind=connection)
-    yield session  # use the session in tests.
+    yield session
     session.close()
     transaction.rollback()
     connection.close()

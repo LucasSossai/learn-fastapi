@@ -26,11 +26,11 @@ def start_application():
 app = start_application()
 
 
-@app.get("/")
+@app.get('/')
 def hello_api():
-    return {"detail": "Hello World"}
+    return {'detail': 'Hello World!'}
 
 
-@app.get("/healthcheck", status_code=status.HTTP_200_OK)
+@app.get('/healthcheck', status_code=status.HTTP_200_OK)
 def perform_healthcheck():
-    return {"healthcheck": "Everything OK!"}
+    return {'healthcheck': 'Everything OK!'}
