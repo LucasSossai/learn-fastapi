@@ -30,7 +30,7 @@ def update_job_by_id(id: int, job: JobCreate, db: Session, owner_id: int):
     return 1
 
 
-def delete_job_by_id(id: int, db: Session, owner_id: int):
+def delete_job_by_id(id: int, db: Session):
     existing_job = db.query(Job).filter(Job.id == id)
     if not existing_job.first():
         return 0

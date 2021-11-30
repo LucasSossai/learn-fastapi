@@ -55,8 +55,7 @@ def update_job(id: int, job: JobCreate, db: Session = Depends(get_db)):
 
 @router.delete('/delete/{id}')
 def delete_job(id: int, db: Session = Depends(get_db)):
-    owner_id = 1
-    message = delete_job_by_id(id=id, db=db, owner_id=owner_id)
+    message = delete_job_by_id(id=id, db=db)
     if not message:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
