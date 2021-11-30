@@ -1,8 +1,9 @@
 from fastapi import FastAPI, status
-from core.config import settings
-from db.session import engine
-from db.base import Base
+
 from apis.base import api_router
+from core.config import settings
+from db.base import Base
+from db.session import engine
 
 
 def create_tables():
@@ -14,7 +15,9 @@ def include_router(app):
 
 
 def start_application():
-    app = FastAPI(title=settings.PROJECT_TITLE, version=settings.PROJECT_VERSION)
+    app = FastAPI(
+        title=settings.PROJECT_TITLE, version=settings.PROJECT_VERSION
+    )
     create_tables()
     include_router(app)
     return app

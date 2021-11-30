@@ -1,8 +1,7 @@
 from sqlalchemy.orm import Session
 
-from schemas.jobs import JobCreate
 from db.models.jobs import Job
-from core.hashing import Hasher
+from schemas.jobs import JobCreate
 
 
 def create_new_job(job: JobCreate, db: Session, owner_id: int):

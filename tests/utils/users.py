@@ -1,8 +1,10 @@
-from sqlalchemy.orm import Session
 import random as rng
 import string
-from schemas.users import UserCreate
+
+from sqlalchemy.orm import Session
+
 from db.repository.users import create_new_user
+from schemas.users import UserCreate
 
 
 def random_lower_string() -> str:
