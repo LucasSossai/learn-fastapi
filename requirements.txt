@@ -9,3 +9,5 @@ pytest
 requests
 flake8
 pytest-cov
+python-jose
+python-multipart
