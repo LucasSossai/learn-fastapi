@@ -19,8 +19,13 @@ class Settings:
     DATABASE_URL = f"""
     postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_SERVER}:{POSTGRES_PORT}/{POSTGRES_DB}
     """.strip()
-
     TEST_SQLITE_DB: str = os.getenv('TEST_SQLITE_DB')
+
+    ACCESS_TOKEN_EXPIRES_MINUTES: int = 15
+    SECRET_KEY: str = os.getenv('SECRET_KEY')
+    ALGORITHM: str = 'HS256'
+
+    TEST_USER_EMAIL: str = 'test@example.com'
 
 
 settings = Settings()

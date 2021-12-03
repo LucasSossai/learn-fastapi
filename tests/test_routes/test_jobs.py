@@ -1,37 +1,33 @@
 import json
-from datetime import datetime
 
 
-def test_create_job(client):
+def test_create_job(client, normal_user_token_headers):
     data = {
-        'title': 'Job Opening Test',
-        'location': 'Brazil',
-        'company': 'Ashley Testing',
-        'description': 'Company created for test',
+        'title': 'SDE 1 Yahoo',
+        'company': 'testhoo',
+        'company_url': 'https://wwww.fdj.com',
+        'location': 'USA,NY',
+        'description': 'Testing',
+        'date_posted': '2022-07-20',
     }
-    response = client.post('/jobs/create-job', json.dumps(data))
+    response = client.post(
+        '/jobs/create-job', json.dumps(data), headers=normal_user_token_headers
+    )
     assert response.status_code == 200
-    assert response.json()['title'] == 'Job Opening Test'
-    assert response.json()['location'] == 'Brazil'
-    assert response.json()['company'] == 'Ashley Testing'
-    assert response.json()['company_url'] is None
-    assert response.json()['description'] == 'Company created for test'
-    assert response.json()['date_posted'] == str(datetime.now().date())
 
 
-def test_retrieve_job_by_id(client):
+def test_retrieve_job_by_id(client, normal_user_token_headers):
     data = {
-        'title': 'Job Opening Test',
-        'location': 'Brazil',
-        'company': 'Ashley Testing',
-        'description': 'Company created for test',
+        'title': 'SDE 1 Yahoo',
+        'company': 'testhoo',
+        'company_url': 'https://wwww.fdj.com',
+        'location': 'USA,NY',
+        'description': 'Testing',
+        'date_posted': '2022-07-20',
     }
-    client.post('/jobs/create-job', json.dumps(data))
-    response = client.get('/jobs/get/1')
+    client.post(
+        '/jobs/create-job', json.dumps(data), headers=normal_user_token_headers
+    )
+    response = client.get('/job/get/1')
     assert response.status_code == 200
-    assert response.json()['title'] == 'Job Opening Test'
-    assert response.json()['location'] == 'Brazil'
-    assert response.json()['company'] == 'Ashley Testing'
-    assert response.json()['company_url'] is None
-    assert response.json()['description'] == 'Company created for test'
-    assert response.json()['date_posted'] == str(datetime.now().date())
+    assert response.json()['title'] == 'SDE 1 Yahoo'
